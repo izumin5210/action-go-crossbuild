@@ -30,7 +30,7 @@ async function run() {
 async function getGoxzPath(version: string): Promise<string> {
   const toolPath = tc.find('goxz', version) || await downloadGoxz(version);
   core.debug(`contained entries: ${fs.readdirSync(toolPath)}`);
-  return path.join(toolPath, getArchiveName(version), "goxz");
+  return path.join(toolPath, "goxz");
 }
 
 async function downloadGoxz(version: string): Promise<string> {
