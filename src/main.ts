@@ -1,3 +1,4 @@
+import * as fs from 'fs';
 import * as path from 'path';
 import * as core from '@actions/core';
 import * as exec from '@actions/exec';
@@ -27,13 +28,15 @@ async function run() {
 }
 
 async function getGoxzPath(version: string): Promise<string> {
-  return path.join(tc.find('goxz', version) || await downloadGoxz(version), "goxz");
+  const toolPath = tc.find('goxz', version) || await downloadGoxz(version);
+  core.debug(`contained entries: ${fs.readdirSync(toolPath)}`);
+  return path.join(toolPath, "goxz");
 }
 
 async function downloadGoxz(version: string): Promise<string> {
   const archivePath = await tc.downloadTool(getUrl(version));
   const extractedPath = await tc.extractTar(archivePath);
-  const path = tc.cacheDir(extractedPath, "goxz", version);
+  const path = await tc.cacheDir(extractedPath, "goxz", version);
   core.debug(`goxz is cached under ${path}`);
   return path;
 }
