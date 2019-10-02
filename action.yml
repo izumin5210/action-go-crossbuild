@@ -22,7 +22,7 @@ inputs:
     default: 'darwin,linux,windows'
   package:
     description: 'Build target package'
-    required: true
+    default: '.'
   goxz-version:
     description: 'Version of github.com/Songmu/goxz'
     default: 'v0.4.1'
