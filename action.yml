@@ -1,10 +1,31 @@
-name: 'Your name here'
-description: 'Provide a description here'
-author: 'Your name or organization here'
+name: 'go-crossbuild'
+description: 'Build Go applications for multiplatform'
+author: 'izumin5210'
 inputs:
-  myInput:              # change this
-    description: 'input description here'
-    default: 'default value if applicable'
+  name:
+    description: 'An application name'
+    default: ''
+  arch:
+    description: 'Space or comma separated list of GOARCH'
+    default: 'amd64'
+  dest:
+    description: 'Path to destination directory of built binaries'
+    default: './dist'
+  ldflags:
+    description: '`-ldflags` to pass to go build'
+    default: ''
+  tags:
+    description: '`-tags` to pass to go build'
+    default: ''
+  os:
+    description: 'Space or comma separated list of GOOS'
+    default: 'darwin,linux,windows'
+  package:
+    description: 'Build target package'
+    required: true
+  goxz-version:
+    description: 'Version of github.com/Songmu/goxz'
+    default: 'v0.4.1'
 runs:
   using: 'node12'
   main: 'lib/main.js'
