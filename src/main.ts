@@ -30,15 +30,16 @@ async function run() {
 async function getGoxzPath(version: string): Promise<string> {
   const toolPath = tc.find('goxz', version) || await downloadGoxz(version);
   core.debug(`contained entries: ${fs.readdirSync(toolPath)}`);
-  return path.join(toolPath, "goxz");
+  return path.join(toolPath, getArchiveName(version), "goxz");
 }
 
 async function downloadGoxz(version: string): Promise<string> {
   const archivePath = await tc.downloadTool(getUrl(version));
   const extractedPath = await tc.extractTar(archivePath);
-  const path = await tc.cacheDir(extractedPath, "goxz", version);
-  core.debug(`goxz is cached under ${path}`);
-  return path;
+  const toolPath = path.join(extractedPath, getArchiveName(version));
+  const cachePath = await tc.cacheDir(toolPath, "goxz", version);
+  core.debug(`goxz is cached under ${cachePath}`);
+  return cachePath;
 }
 
 function getUrl(version: string): string {
