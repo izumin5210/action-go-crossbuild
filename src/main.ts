@@ -34,7 +34,9 @@ async function getGoxzPath(version: string): Promise<string> {
 async function downloadGoxz(version: string): Promise<string> {
   const archivePath = await tc.downloadTool(getUrl(version));
   const extractedPath = await tc.extractTar(archivePath);
-  return tc.cacheDir(extractedPath, "goxz", version);
+  const path = tc.cacheDir(extractedPath, "goxz", version);
+  core.debug(`goxz is cached under ${path}`);
+  return path;
 }
 
 function getUrl(version: string): string {
