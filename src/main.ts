@@ -54,7 +54,7 @@ function buildFlags(): Array<string> {
   return Object.entries(inputByGoxzFlag)
     .map(([k, v]) => [k, core.getInput(v)])
     .filter(([_, v]) => v.length > 0)
-    .map(([k ,v]) => `-${k}="${v}"`);
+    .map(([k ,v]) => `-${k}=${v}`);
 }
 
 run();
